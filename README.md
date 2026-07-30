@@ -1,57 +1,104 @@
-🧠 Universal Document RAG System using Groq API
+# 🧠 Universal Document RAG System using Groq API
 
-A high-performance Retrieval-Augmented Generation (RAG) application that enables users to ask natural language questions over their own documents. The system retrieves the most relevant information using semantic vector search and generates context-aware, grounded responses using Groq-hosted Llama 3.1 models.
+A high-performance **Retrieval-Augmented Generation (RAG)** system that enables users to ask natural language questions over their own documents. The application retrieves the most relevant information using **semantic vector search** and generates accurate, context-aware responses using **Groq-hosted Llama 3.1** models.
 
-Designed with a modular architecture, this project supports multiple document formats and serves as a solid foundation for building AI-powered knowledge assistants, enterprise search systems, and document chatbots.
+Designed with a modular architecture, this project serves as a foundation for building AI-powered document assistants, enterprise knowledge bases, research assistants, and intelligent search systems.
 
-✨ Features
-📄 Supports multiple document formats (PDF, TXT, JSON)
-🔍 Semantic document retrieval using Sentence Transformers
-⚡ Lightning-fast inference with Groq API
-🧠 Retrieval-Augmented Generation (RAG) for accurate, context-aware responses
-📚 Automatic document chunking and embedding generation
-💾 High-speed similarity search using FAISS
-🔐 Secure API key management with .env
-🏗️ Modular and scalable project architecture
-💻 Interactive command-line chat interface
-🏛️ System Architecture
-                ┌────────────┐
-                │ User Query │
-                └─────┬──────┘
-                      │
-                      ▼
-          Generate Query Embedding
-                      │
-                      ▼
-          FAISS Similarity Search
-                      │
-                      ▼
-         Retrieve Top-K Relevant Chunks
-                      │
-                      ▼
-       Prompt + Retrieved Context
-                      │
-                      ▼
-             Groq Llama 3.1 API
-                      │
-                      ▼
-        Context-Aware Final Response
-🛠️ Tech Stack
-Component	Technology	Purpose
-Programming Language	Python	Core development
-Embedding Model	Sentence Transformers	Semantic vector embeddings
-Vector Database	FAISS	Efficient similarity search
-Large Language Model	Llama 3.1	Response generation
-LLM Inference	Groq API	Ultra-fast inference
-Environment Management	python-dotenv	Secure API key storage
-📂 Project Structure
+---
+
+## ✨ Features
+
+- 📄 Supports multiple document formats (PDF, TXT, JSON)
+- 🔍 Semantic search using Sentence Transformers
+- ⚡ Ultra-fast inference powered by Groq API
+- 🧠 Retrieval-Augmented Generation (RAG) for grounded responses
+- 📚 Automatic document chunking and embedding generation
+- 💾 High-speed similarity search using FAISS
+- 🔐 Secure API key management with `.env`
+- 🏗️ Modular and scalable project architecture
+- 💻 Interactive CLI chat interface
+- 🚀 Easy to extend with additional document formats
+
+---
+
+## 🏗️ Architecture Overview
+
+```mermaid
+flowchart TD
+    A([User Query])
+    B[Generate Query Embedding]
+    C[FAISS Vector Search]
+    D[Retrieve Top-K Relevant Chunks]
+    E[Construct Prompt with Retrieved Context]
+    F[Groq API<br/>Llama 3.1]
+    G([Context-Aware Response])
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+```
+
+---
+
+## 🔄 RAG Workflow
+
+```mermaid
+flowchart TD
+
+    A[Load Documents]
+    B[Split into Chunks]
+    C[Generate Embeddings]
+    D[Build FAISS Index]
+    E[Store Vector Database]
+    F[User Query]
+    G[Generate Query Embedding]
+    H[Semantic Search]
+    I[Retrieve Top-K Chunks]
+    J[Prompt Construction]
+    K[Groq Llama 3.1]
+    L[Final Answer]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| Language | Python | Core development |
+| Embeddings | Sentence Transformers | Semantic vector embeddings |
+| Vector Database | FAISS | Fast similarity search |
+| Large Language Model | Llama 3.1 | Context-aware response generation |
+| LLM Inference | Groq API | Low-latency inference |
+| Environment Variables | python-dotenv | Secure API key handling |
+
+---
+
+## 📁 Project Structure
+
+```text
 doc_RAG/
 │
 ├── core/
-│   ├── embedder.py          # Generates embeddings
-│   ├── vector_db.py         # FAISS index management
+│   ├── embedder.py          # Embedding model
+│   ├── vector_db.py         # FAISS index operations
 │   ├── retriever.py         # Semantic retrieval
-│   └── groq_llm.py          # Groq LLM integration
+│   └── groq_llm.py          # Groq API integration
 │
 ├── loaders/
 │   ├── __init__.py
@@ -65,100 +112,139 @@ doc_RAG/
 │   ├── sample.txt
 │   └── document.pdf
 │
-├── build_index.py           # Creates vector database
+├── build_index.py           # Builds the vector database
 ├── rag_chat.py              # Interactive chatbot
 ├── requirements.txt
 ├── .env
 └── README.md
-⚙️ Installation
-1. Clone the Repository
+```
+
+---
+
+# ⚙️ Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/your-username/universal-document-rag.git
 
 cd universal-document-rag
-2. Install Dependencies
+```
+
+---
+
+### 2️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
-3. Configure Environment Variables
+```
 
-Create a .env file in the project root.
+---
 
+### 3️⃣ Configure Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
 GROQ_API_KEY=your_groq_api_key_here
+```
 
-Note: Never commit your .env file to version control.
+> **⚠️ Never commit your `.env` file to GitHub.**
 
-4. Build the Vector Index
+---
+
+### 4️⃣ Build the Vector Database
+
+```bash
 python build_index.py
+```
 
-Output
+Expected Output:
 
+```text
 Loading documents...
 Generating embeddings...
-Building FAISS index...
-Vector database created successfully.
-5. Launch the Chat Interface
+Creating FAISS index...
+Vector database built successfully.
+```
+
+---
+
+### 5️⃣ Launch the Chat Interface
+
+```bash
 python rag_chat.py
-💬 Example
-Query
+```
+
+---
+
+## 💬 Example Usage
+
+### Query
+
+```text
 Where is Ariyalur Engineering College located?
-Retrieved Context
-NH-227, Trichy-Chidambaram Highway,
+```
+
+### Response
+
+```text
+Ariyalur Engineering College is located at:
+
+NH-227, Trichy–Chidambaram Highway,
 Karuppur-Senapathy Post,
 Ariyalur District,
-Tamil Nadu
-Response
-Ariyalur Engineering College is located on NH-227
-(Trichy–Chidambaram Highway), Karuppur-Senapathy Post,
-Ariyalur District, Tamil Nadu.
-📈 Workflow
-Load Documents
-      │
-      ▼
-Split into Chunks
-      │
-      ▼
-Generate Embeddings
-      │
-      ▼
-Store in FAISS
-      │
-      ▼
-User Query
-      │
-      ▼
-Semantic Search
-      │
-      ▼
-Retrieve Relevant Chunks
-      │
-      ▼
-Generate Response using Groq Llama
-      │
-      ▼
-Final Answer
-🎯 Applications
-📚 Document Question Answering
-🏢 Enterprise Knowledge Base
-🎓 Educational Assistants
-📑 Research Paper Search
-📄 Legal & Policy Document Analysis
-🏥 Healthcare Documentation
-🤖 AI-powered Internal Chatbots
-🚀 Future Enhancements
-🌐 Web-based interface using Streamlit or FastAPI
-🗄️ Support for additional vector databases (ChromaDB, Pinecone, Milvus)
-📂 Drag-and-drop document uploads
-💬 Conversation memory
-🔄 Incremental document indexing
-📊 Source citations and confidence scores
-🖼️ OCR support for scanned PDFs
-🌍 Multi-language document support
-⭐ Contributing
+Tamil Nadu.
+```
 
-Contributions, issues, and feature requests are welcome! Feel free to fork the repository and submit a pull request.
+---
 
-📜 License
+## 🎯 Applications
 
-This project is licensed under the MIT License.
+- 📚 Document Question Answering
+- 🏢 Enterprise Knowledge Bases
+- 🎓 Educational Assistants
+- 📑 Research Paper Search
+- ⚖️ Legal Document Analysis
+- 🏥 Healthcare Knowledge Systems
+- 🤖 AI-powered Internal Chatbots
 
-⭐ Support
+---
 
-If you found this project useful, consider giving it a ⭐ on GitHub. It helps others discover the project and supports future improvements.
+## 🚀 Future Enhancements
+
+- 🌐 Streamlit or FastAPI Web Interface
+- 🗂️ Support for DOCX, CSV, and HTML documents
+- 📤 Drag-and-drop document upload
+- 💬 Multi-turn conversation memory
+- 🔄 Incremental vector indexing
+- 📖 Source citations with confidence scores
+- 🖼️ OCR support for scanned PDFs
+- 🌍 Multilingual document support
+- ☁️ Integration with Pinecone, ChromaDB, and Milvus
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## ⭐ Support
+
+If you found this project useful, please consider giving it a **⭐ Star** on GitHub.
+
+Your support helps improve the project and encourages future development.
